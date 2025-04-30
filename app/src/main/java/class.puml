@@ -1,0 +1,82 @@
+@startuml
+class ExercisesYouCanDo {
+  TextView result
+  ImageView imageView
+  Button pictureButton
+  Button confirmButton
+  Button retakeButton
+  CardView resultCard
+}
+
+class Login {
+}
+
+class LoginFragment {
+  String mParam1
+  String mParam2
+}
+
+class MainActivity {
+  Context context
+}
+
+class ObjectInfoActivity {
+}
+
+class RegisterFragment {
+  String mParam1
+  String mParam2
+}
+
+class StartPlanning {
+  Context context
+}
+
+class TextToSpeechService {
+  TextToSpeech tts
+  String textToSpeak
+}
+
+class UserDetails {
+  String name
+  String password
+  String email
+  String phoneNumber
+}
+
+class WorkoutDetailActivity {
+  TextView workoutNameTextView
+  TextView workoutDescriptionTextView
+  TextView setsTextView
+  TextView repsTextView
+  TextView timerTextView
+  Button startPauseButton
+  Button resetButton
+  Button finishWorkoutButton
+  CountDownTimer timer
+}
+
+class WorkoutRoutineActivity {
+  TextView routineTitleTextView
+  ListView workoutListView
+  Button finishRoutineButton
+  ArrayList<String> selectedEquipment
+  ArrayList<String> selectedWorkouts
+  String name
+  String description
+  int sets
+  String reps
+}
+
+class WorkoutSelectionActivity {
+  LinearLayout workoutsContainer
+  Button startWorkoutButton
+  String name
+  String description
+  int sets
+  String reps
+}
+
+class DatabaseHelper {
+}
+@enduml
