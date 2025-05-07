@@ -1,5 +1,6 @@
 package com.example.workoutplanner;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -37,6 +38,7 @@ public class LoginFragment extends Fragment {
     EditText etName;
     EditText etPassword;
     View view;
+    private Context context;
 
 
     public LoginFragment() {
@@ -84,8 +86,12 @@ public class LoginFragment extends Fragment {
                 // Validate login and password
                 if (dbHelper.validateLogin(userName, userPsd)) {
                     Toast.makeText(getContext(), "Login successful!", Toast.LENGTH_SHORT).show();
+
+                    // Say "Thank you for joining us" using text-to-speech
+                    saySomething("Thank you for joining us");
+
                     //Call PlayGame activity
-                    Intent intent = new Intent( getActivity() , StartPlanning.class);
+                    Intent intent = new Intent(getActivity(), StartPlanning.class);
                     startActivity(intent);
                 } else {
                     Toast.makeText(getContext(), "Invalid username or password!", Toast.LENGTH_SHORT).show();
@@ -108,11 +114,20 @@ public class LoginFragment extends Fragment {
 
         return view;
     }
+
+    //Method to speak text, gets text and sends it to service
+    public void saySomething(String text){
+        Intent intent = new Intent(getContext(), TextToSpeechService.class);
+        intent.putExtra("text", text);
+        getActivity().startService(intent);
+    }
+
     private void initializeFragment() {
         dbHelper = new DatabaseHelper(this.getContext());
         btnLogin = view.findViewById(R.id.btnLogin);
         tvRegister = view.findViewById(R.id.tvRegister);
         etName = view.findViewById(R.id.etName);
         etPassword = view.findViewById(R.id.etPassword);
+        context = getContext();
     }
 }

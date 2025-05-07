@@ -61,7 +61,7 @@ public class StartPlanning extends AppCompatActivity {
 
         // Animation and welcome message
         tvThank.animate().rotation(360f).setDuration(4000);
-        saySomething("Thank you for joining us");
+
     }
 
     // Method to speak text, gets text and sends it to service

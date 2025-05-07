@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 Intent intent = new Intent( MainActivity.this , Login.class);
                 startActivity(intent);
+                Toast.makeText(MainActivity.this, "Hello!", Toast.LENGTH_SHORT).show();
             }});
         countDownTimer = new CountDownTimer(5000, 1000) {
             @Override
@@ -48,9 +49,8 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void onFinish() {
-                Intent intent = new Intent(MainActivity.this, Login.class);
-                startActivity(intent);
-                Toast.makeText(MainActivity.this, "Hello!", Toast.LENGTH_SHORT).show();
+                saySomething("Welcome to the Workout Planner app");
+
             }
         }.start();
         initialize();

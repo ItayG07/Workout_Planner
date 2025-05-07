@@ -16,7 +16,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
         android:gravity="center"
-        android:text="Thank you for joining us"
+        android:text="Let's begin"
         android:textColor="#FFFFFF"
         android:textSize="35sp"
         android:textStyle="bold" />
