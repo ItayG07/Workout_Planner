@@ -1,6 +1,6 @@
 package com.example.workoutplanner;
 
-public class    UserDetails {
+public class UserDetails {
     private String name;
     private String password;
     private String email;
