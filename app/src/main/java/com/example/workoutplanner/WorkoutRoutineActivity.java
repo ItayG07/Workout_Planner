@@ -95,7 +95,7 @@ public class WorkoutRoutineActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Close all activities and return to main activity
-                Intent intent = new Intent(WorkoutRoutineActivity.this, MainActivity.class);
+                Intent intent = new Intent(WorkoutRoutineActivity.this, StartPlanning.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 finish();

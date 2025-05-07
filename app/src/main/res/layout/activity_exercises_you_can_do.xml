@@ -30,7 +30,7 @@
         android:id="@+id/takePhotoButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Take Photo"
+        android:text="Take a photo of the equipment you have"
         android:layout_marginBottom="16dp"/>
 
     <androidx.cardview.widget.CardView

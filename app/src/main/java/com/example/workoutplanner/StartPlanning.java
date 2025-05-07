@@ -14,29 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.media.ThumbnailUtils;
-import android.os.Bundle;
-import android.provider.MediaStore;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.Manifest;
-import androidx.activity.EdgeToEdge;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import org.tensorflow.lite.DataType;
-import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
-import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import com.example.workoutplanner.ml.ModelUnquant;
 
 public class StartPlanning extends AppCompatActivity {
-    Button btnStart;
+    Button btnAiWorkout, btnManualWorkout;
     CountDownTimer countDownTimer;
     private Context context;
     TextView tvThank;
@@ -51,43 +31,51 @@ public class StartPlanning extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        //listener that taking the user to next activity
-        btnStart = findViewById(R.id.btnStart);
-        btnStart.setOnClickListener(new View.OnClickListener() {
+
+        initialize();
+
+        // AI-assisted workout planning button
+        btnAiWorkout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 if (countDownTimer != null) {
                     countDownTimer.cancel();
                 }
-                Intent intent = new Intent( StartPlanning.this , ExercisesYouCanDo.class);
+                Intent intent = new Intent(StartPlanning.this, ExercisesYouCanDo.class);
                 startActivity(intent);
-            }});
-        //count down timer to move to next activity and say thank you to the user
-        countDownTimer = new CountDownTimer(5000, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
             }
-            @Override
-            public void onFinish() {
-                Intent intent = new Intent( StartPlanning.this , ExercisesYouCanDo.class);
+        });
+
+        // Manual workout building button
+        btnManualWorkout.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                if (countDownTimer != null) {
+                    countDownTimer.cancel();
+                }
+                // Replace ManualWorkoutBuilder with your actual activity name for manual workout building
+                Intent intent = new Intent(StartPlanning.this, ManualWorkoutBuilder.class);
                 startActivity(intent);
-                Toast.makeText(StartPlanning.this, "Hello!", Toast.LENGTH_SHORT).show();
             }
-        }.start();
-        initialize();
-        //cool rotation and say Welcome
+        });
+
+
+
+        // Animation and welcome message
         tvThank.animate().rotation(360f).setDuration(4000);
         saySomething("Thank you for joining us");
     }
-    //Method to speak text, gets text and sends it to service
-    public void saySomething(String text){
+
+    // Method to speak text, gets text and sends it to service
+    public void saySomething(String text) {
         Intent intent = new Intent(context, TextToSpeechService.class);
         intent.putExtra("text", text);
         startService(intent);
     }
-    //init all elements
-    public void initialize(){
+
+    // Initialize all elements
+    public void initialize() {
         context = this;
         tvThank = findViewById(R.id.tvThank);
-
+        btnAiWorkout = findViewById(R.id.btnAiWorkout);
+        btnManualWorkout = findViewById(R.id.btnManualWorkout);
     }
 }
