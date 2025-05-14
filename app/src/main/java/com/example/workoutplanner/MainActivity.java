@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -57,6 +59,30 @@ public class MainActivity extends AppCompatActivity {
         //cool rotation for the text and say Welcome to user
         tvTitle.animate().rotation(360f).setDuration(4000);
         saySomething("Welcome to the Workout Planner App!");
+    }
+    //menu
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.main) {
+            //Back to intro activity
+            Intent intent = new Intent( MainActivity.this , MainActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id == R.id.goBack) {
+            //Back to intro activity
+            Intent intent = new Intent( MainActivity.this , MainActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id ==R.id.closeApp  ){
+            finishAffinity(); // This will close all activities
+        }
+        return super.onOptionsItemSelected(item);
     }
     //Method to speak text, gets text and sends it to service
     public void saySomething(String text){

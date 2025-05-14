@@ -2,6 +2,8 @@ package com.example.workoutplanner;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -138,28 +140,33 @@ public class ObjectInfoActivity extends AppCompatActivity {
             noDetectedView.setPadding(16, 24, 16, 24);
             infoContainer.addView(noDetectedView);
 
-            // Add button to go to manual workout builder
-            Button manualButton = new Button(this);
-            manualButton.setText("Go to Workout Builder");
-            manualButton.setPadding(16, 16, 16, 16);
-            LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-            );
-            buttonParams.setMargins(16, 24, 16, 16);
-            manualButton.setLayoutParams(buttonParams);
-            infoContainer.addView(manualButton);
 
-            // Set click listener for the button
-            manualButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Navigate to manual workout builder
-                    Intent intent = new Intent(ObjectInfoActivity.this, ManualWorkoutBuilder.class);
-                    startActivity(intent);
-                }
-            });
+
         }
+    }
+    //menu
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.main) {
+            //Back to intro activity
+            Intent intent = new Intent( ObjectInfoActivity.this , MainActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id == R.id.goBack) {
+            //Back to intro activity
+                Intent intent = new Intent( ObjectInfoActivity.this , ExercisesYouCanDo.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id ==R.id.closeApp  ){
+            finishAffinity(); // This will close all activities
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void initEquipmentInfo() {

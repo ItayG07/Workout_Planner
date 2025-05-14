@@ -8,9 +8,14 @@ import android.media.ThumbnailUtils;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +43,11 @@ public class ExercisesYouCanDo extends AppCompatActivity {
     private Button pictureButton;
     private Button confirmButton;
     private Button retakeButton;
+    private Button manualSelectButton; //  button for manual selection
+    private Button addSelectedButton; //  button to add manually selected equipment
+    private Spinner equipmentSpinner; // Spinner for equipment selection
     private CardView resultCard;
+    private CardView manualSelectionCard; //  card for manual selection
     private int imageSize = 224;
     private String detectedObject = "";
     private List<String> selectedObjects = new ArrayList<>();
@@ -58,8 +67,20 @@ public class ExercisesYouCanDo extends AppCompatActivity {
         retakeButton = findViewById(R.id.retakeButton);
         resultCard = findViewById(R.id.resultCard);
 
-        // Initially hide the result card
+        // Initialize new views for manual selection
+        manualSelectButton = findViewById(R.id.manualSelectButton);
+        manualSelectionCard = findViewById(R.id.manualSelectionCard);
+        equipmentSpinner = findViewById(R.id.equipmentSpinner);
+        addSelectedButton = findViewById(R.id.addSelectedButton);
+
+        // Initially hide the result card and manual selection card
         resultCard.setVisibility(View.GONE);
+        manualSelectionCard.setVisibility(View.GONE);
+
+        // Set up the spinner with equipment options
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_dropdown_item, classes);
+        equipmentSpinner.setAdapter(adapter);
 
         // Set up click listeners
         pictureButton.setOnClickListener(new View.OnClickListener() {
@@ -93,8 +114,8 @@ public class ExercisesYouCanDo extends AppCompatActivity {
                     // Hide the result card
                     resultCard.setVisibility(View.GONE);
 
-                    // If we have at least one object, enable the view info button
-                    findViewById(R.id.viewInfoButton).setVisibility(View.VISIBLE);
+                    // Update view info button visibility
+                    updateViewInfoButtonVisibility();
                 }
             }
         });
@@ -107,6 +128,47 @@ public class ExercisesYouCanDo extends AppCompatActivity {
                     Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(cameraIntent, 1);
                 }
+            }
+        });
+
+        // Set up manual selection button
+        manualSelectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Hide result card if visible
+                resultCard.setVisibility(View.GONE);
+
+                // Show manual selection card
+                manualSelectionCard.setVisibility(View.VISIBLE);
+            }
+        });
+
+        // Set up add selected button
+        addSelectedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String selectedEquipment = equipmentSpinner.getSelectedItem().toString();
+
+                // Add the selected equipment to our list if it's not already there
+                if (!selectedObjects.contains(selectedEquipment)) {
+                    selectedObjects.add(selectedEquipment);
+
+                    // Show a toast to confirm the selection
+                    Toast.makeText(ExercisesYouCanDo.this,
+                            selectedEquipment + " added to your equipment list",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    // Show a toast indicating the equipment is already in the list
+                    Toast.makeText(ExercisesYouCanDo.this,
+                            selectedEquipment + " is already in your equipment list",
+                            Toast.LENGTH_SHORT).show();
+                }
+
+                // Hide the manual selection card
+                manualSelectionCard.setVisibility(View.GONE);
+
+                // Update view info button visibility
+                updateViewInfoButtonVisibility();
             }
         });
 
@@ -123,6 +185,39 @@ public class ExercisesYouCanDo extends AppCompatActivity {
 
         // Initially hide the view info button
         findViewById(R.id.viewInfoButton).setVisibility(View.GONE);
+    }
+    //menu
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.main) {
+            //Back to intro activity
+            Intent intent = new Intent( ExercisesYouCanDo.this , MainActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id == R.id.goBack) {
+            //Back to intro activity
+            Intent intent = new Intent( ExercisesYouCanDo.this , StartPlanning.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id ==R.id.closeApp  ){
+            finishAffinity(); // This will close all activities
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    // Helper method to update the visibility of the view info button
+    private void updateViewInfoButtonVisibility() {
+        if (selectedObjects.size() > 0) {
+            findViewById(R.id.viewInfoButton).setVisibility(View.VISIBLE);
+        } else {
+            findViewById(R.id.viewInfoButton).setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -197,6 +292,12 @@ public class ExercisesYouCanDo extends AppCompatActivity {
 
                 // Show the result card
                 resultCard.setVisibility(View.VISIBLE);
+
+                // Hide manual selection card if visible
+                manualSelectionCard.setVisibility(View.GONE);
+
+                // Enable the confirm button
+                confirmButton.setEnabled(true);
             } else {
                 detectedObject = "";
                 result.setText("No equipment detected");

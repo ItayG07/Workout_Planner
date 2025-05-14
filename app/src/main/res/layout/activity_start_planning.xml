@@ -16,67 +16,32 @@
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
         android:gravity="center"
-        android:text="Let's begin"
+        android:text="Thank you for joining us"
         android:textColor="#FFFFFF"
         android:textSize="35sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/tvChooseOption"
+    <com.airbnb.lottie.LottieAnimationView
+
+        android:id="@+id/animationView"
+
+        android:layout_width="match_parent"
+
+        android:layout_height="243dp"
+
+        app:lottie_autoPlay="true"
+
+        app:lottie_loop="true"
+
+        app:lottie_rawRes="@raw/animation" />
+
+    <Button
+        android:id="@+id/btnStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:gravity="center"
-        android:text="Choose your workout planning method:"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/btnAiWorkout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="15dp"
-            android:text="AI-Assisted Workout Plan"
-            android:textSize="20sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="40dp"
-            android:gravity="center"
-            android:text="Take a picture using AI to create a personalized workout plan"
-            android:textColor="#FFFFFF"
-            android:textSize="20dp" />
-
-        <Button
-            android:id="@+id/btnManualWorkout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="15dp"
-            android:text="Build Your Own Workout"
-            android:textSize="20sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:text="Create a custom workout routine manually"
-            android:textColor="#E0E0E0"
-            android:textSize="20dp" />
-    </LinearLayout>
+        android:layout_marginTop="200sp"
+        android:text="Lets start planning your workouts"
+        android:textSize="20sp" />
 
 </LinearLayout>

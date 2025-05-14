@@ -1,7 +1,10 @@
 package com.example.workoutplanner;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,5 +30,29 @@ public class Login extends AppCompatActivity {
                     .commit();
         }
 
+    }
+    //menu
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.main) {
+            //Back to intro activity
+            Intent intent = new Intent( Login.this , MainActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id == R.id.goBack) {
+            //Back to intro activity
+            Intent intent = new Intent( Login.this , MainActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id ==R.id.closeApp  ){
+            finishAffinity(); // This will close all activities
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
